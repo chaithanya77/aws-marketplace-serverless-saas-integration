@@ -35,6 +35,12 @@ Parameters:
       - contracts_with_subscription
       - contracts
       - subscriptions
+  
+  AliasName:
+    Type: String
+
+  CertARN:
+    Type: String
 
   ProductCode:
     Type: String
@@ -94,6 +100,12 @@ Resources:
         DefaultRootObject: "index.html"
         Enabled: true
         HttpVersion: http2
+        Aliases: 
+        - !Ref AliasName
+        ViewerCertificate:
+          AcmCertificateArn: !Ref CertARN
+          MinimumProtocolVersion: TLSv1.2_2018
+          SslSupportMethod: sni-only
         # List of origins that Cloudfront will connect to
         Origins:
           - Id: s3-website
